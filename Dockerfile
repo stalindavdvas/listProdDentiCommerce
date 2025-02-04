@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y libpq-dev gcc
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Exponer el puerto donde se ejecutará tu aplicación (5002 para este microservicio)
-EXPOSE 5002
+EXPOSE 5000
 
 # Comando para ejecutar la aplicación
 CMD ["python", "listar.py"]

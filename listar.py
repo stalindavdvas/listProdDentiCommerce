@@ -8,9 +8,9 @@ CORS(app)
 # Configuración de la conexión a PostgreSQL
 def get_db_connection():
     return psycopg2.connect(
-        host="host.docker.internal",
+        host="98.84.245.136",
         database="items",
-        user="postgres",
+        user="stalin",
         password="stalin"
     )
 
@@ -21,7 +21,8 @@ def listar_productos():
     cursor = conn.cursor()
 
     try:
-        query = "SELECT id, name, description, price, stock, category_id FROM products;"
+        # Incluir image_url en la consulta SQL
+        query = "SELECT id, name, description, price, stock, category_id, image_url FROM products;"
         cursor.execute(query)
         productos = cursor.fetchall()
 
@@ -32,9 +33,10 @@ def listar_productos():
                 'id': producto[0],
                 'name': producto[1],
                 'description': producto[2],
-                'price': producto[3],
+                'price': float(producto[3]),  # Convertir a float para evitar problemas con JSON
                 'stock': producto[4],
-                'category_id': producto[5]
+                'category_id': producto[5],
+                'image_url': producto[6]  # Incluir la URL de la imagen
             })
 
         return jsonify(productos_list), 200
@@ -46,4 +48,4 @@ def listar_productos():
 
 # Bloque __main__ para ejecutar el microservicio en el puerto 5002
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5002, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
