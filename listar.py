@@ -5,7 +5,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-# Configuración de la conexión a PostgreSQL
+# config postgres
 def get_db_connection():
     return psycopg2.connect(
         host="98.84.245.136",
